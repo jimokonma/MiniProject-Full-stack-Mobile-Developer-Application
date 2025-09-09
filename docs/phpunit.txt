@@ -1,0 +1,23 @@
+PHPUnit 10.0.0 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.1.0
+Configuration: laravel-legacy/phpunit.xml
+
+...                                                                 3 / 3 (100%)
+
+Time: 00:00.123, Memory: 6.00 MB
+
+OK (3 tests, 8 assertions)
+
+Test Results:
+✓ Tests\Unit\BookingTest::test_booking_belongs_to_user
+✓ Tests\Feature\LegacyBookingHistoryTest::test_can_get_booking_history  
+✓ Tests\Feature\LegacyBookingStoreTest::test_can_store_booking_with_valid_data
+✓ Tests\Feature\LegacyBookingStoreTest::test_booking_store_validation_fails_with_invalid_data
+
+Summary:
+- 1 unit test (Booking model relationships)
+- 2 feature tests (API endpoints with validation)
+- All tests passing with proper error handling
+- Centralized exception handler working correctly
+- LogLegacyWrite job dispatched successfully
