@@ -42,8 +42,8 @@ describe('BookingsService', () => {
     (prisma.idempotencyKey.findUnique as any).mockResolvedValue(null);
     (prisma.booking.create as any).mockResolvedValue({ id: 'b1', status: 'accepted' });
     await service.create('u1', { serviceType: 'dropoff', vehicleMake: 'A', vehicleModel: 'B', vehiclePlate: 'C', location: 'L', scheduledFor: new Date().toISOString() }, 'key2');
-    expect(prisma.idempotencyKey.create).toBeCalled();
-    expect(realtime.emitBookingStatusUpdated).toBeCalledWith('b1', { id: 'b1', status: 'accepted' });
+    expect(prisma.idempotencyKey.create).toHaveBeenCalled();
+    expect(realtime.emitBookingStatusUpdated).toHaveBeenCalledWith('b1', { id: 'b1', status: 'accepted' });
   });
 });
 

@@ -37,14 +37,14 @@ const client_1 = require("@prisma/client");
 const bcrypt = __importStar(require("bcrypt"));
 const prisma = new client_1.PrismaClient();
 async function main() {
-    const email = 'Jim.okonam@gmail.com';
+    const email = 'Jim.okonma@gmail.com';
     const passwordPlain = 'P@$$w0rd';
     const password = await bcrypt.hash(passwordPlain, 10);
     await prisma.user.upsert({
         where: { email },
         update: {},
         create: {
-            name: 'Jim Okonam',
+            name: 'Jim okonma',
             email,
             password,
         },

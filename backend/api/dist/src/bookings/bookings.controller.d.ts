@@ -29,20 +29,7 @@ export declare class BookingsController {
         scheduledFor: Date;
         updatedAt: Date;
     }[]>;
-    history(req: any): Promise<{
-        source: string;
-        id: string;
-        createdAt: Date;
-        type: import("@prisma/client").$Enums.BookingType;
-        userId: string;
-        status: import("@prisma/client").$Enums.BookingStatus;
-        vehicleMake: string;
-        vehicleModel: string;
-        vehiclePlate: string;
-        location: string;
-        scheduledFor: Date;
-        updatedAt: Date;
-    }[]>;
+    history(req: any): Promise<any[]>;
     detail(id: string): Promise<{
         id: string;
         createdAt: Date;

@@ -9,13 +9,20 @@ const common_1 = require("@nestjs/common");
 const http_exception_filter_1 = require("./common/filters/http-exception.filter");
 const swagger_1 = require("@nestjs/swagger");
 const helmet_1 = __importDefault(require("helmet"));
-const cors_1 = __importDefault(require("cors"));
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
     app.useGlobalFilters(new http_exception_filter_1.GlobalHttpExceptionFilter());
     app.use((0, helmet_1.default)());
-    app.use((0, cors_1.default)({ origin: process.env.CORS_ORIGIN?.split(',') ?? '*' }));
+    app.enableCors({
+        origin: process.env.CORS_ORIGIN
+            ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean)
+            : true,
+        credentials: true,
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Idempotency-Key'],
+        exposedHeaders: ['Set-Cookie'],
+    });
     const config = new swagger_1.DocumentBuilder()
         .setTitle('Doovo API')
         .setDescription('UltraSimplified Customer API')

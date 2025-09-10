@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 async function main() {
-  const email = 'Jim.okonam@gmail.com';
+  const email = 'Jim.okonma@gmail.com';
   const passwordPlain = 'P@$$w0rd';
   const password = await bcrypt.hash(passwordPlain, 10);
 
@@ -12,7 +12,7 @@ async function main() {
     where: { email },
     update: {},
     create: {
-      name: 'Jim Okonam',
+      name: 'Jim okonma',
       email,
       password,
     },

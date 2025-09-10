@@ -48,20 +48,7 @@ export declare class BookingsService implements OnModuleInit {
         scheduledFor: Date;
         updatedAt: Date;
     }>;
-    historyMerged(userId: string): Promise<{
-        source: string;
-        id: string;
-        createdAt: Date;
-        type: import("@prisma/client").$Enums.BookingType;
-        userId: string;
-        status: import("@prisma/client").$Enums.BookingStatus;
-        vehicleMake: string;
-        vehicleModel: string;
-        vehiclePlate: string;
-        location: string;
-        scheduledFor: Date;
-        updatedAt: Date;
-    }[]>;
+    historyMerged(userId: string): Promise<any[]>;
     updateStatus(id: string, status: string): Promise<{
         id: string;
         createdAt: Date;

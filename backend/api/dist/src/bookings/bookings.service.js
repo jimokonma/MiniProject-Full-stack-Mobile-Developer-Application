@@ -76,8 +76,49 @@ let BookingsService = class BookingsService {
     }
     async historyMerged(userId) {
         const nestHistory = await this.prisma.booking.findMany({ where: { userId } });
-        const laravelSimulated = nestHistory.map((b) => ({ ...b, source: 'laravel' }));
-        const merged = [...nestHistory.map((b) => ({ ...b, source: 'nest' })), ...laravelSimulated];
+        const nestNormalized = nestHistory.map((b) => ({
+            id: b.id,
+            userId: b.userId,
+            type: b.type,
+            status: b.status,
+            vehicleMake: b.vehicleMake,
+            vehicleModel: b.vehicleModel,
+            vehiclePlate: b.vehiclePlate,
+            location: b.location,
+            scheduledFor: b.scheduledFor,
+            createdAt: b.createdAt,
+            source: 'nest',
+        }));
+        let laravelNormalized = [];
+        const baseUrl = process.env.LARAVEL_BASE_URL || 'http://localhost:8001';
+        try {
+            const resp = await fetch(`${baseUrl}/api/legacy/bookings/history`, {
+                method: 'GET',
+                headers: { 'Accept': 'application/json' },
+            });
+            if (resp.ok) {
+                const laravelData = await resp.json();
+                laravelNormalized = (Array.isArray(laravelData) ? laravelData : []).
+                    filter((b) => String(b.user_id) === String(userId)).
+                    map((b) => ({
+                    id: String(b.id),
+                    userId: String(b.user_id),
+                    type: String(b.type),
+                    status: String(b.status),
+                    vehicleMake: String(b.vehicle_make),
+                    vehicleModel: String(b.vehicle_model),
+                    vehiclePlate: String(b.vehicle_plate),
+                    location: String(b.location),
+                    scheduledFor: b.scheduled_for ? new Date(b.scheduled_for) : undefined,
+                    createdAt: b.created_at ? new Date(b.created_at) : new Date(0),
+                    source: 'laravel',
+                }));
+            }
+        }
+        catch {
+            laravelNormalized = [];
+        }
+        const merged = [...nestNormalized, ...laravelNormalized];
         return merged.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
     }
     async updateStatus(id, status) {

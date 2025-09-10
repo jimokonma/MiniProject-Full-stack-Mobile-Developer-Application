@@ -15,7 +15,16 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalHttpExceptionFilter());
 
   app.use(helmet());
-  app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',') ?? '*' } as any));
+  // Enable CORS with credentials support. If CORS_ORIGIN is not set, reflect request origin (dev-friendly).
+  app.enableCors({
+    origin: process.env.CORS_ORIGIN
+      ? process.env.CORS_ORIGIN.split(',').map((o) => o.trim()).filter(Boolean)
+      : true,
+    credentials: true,
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Idempotency-Key'],
+    exposedHeaders: ['Set-Cookie'],
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Doovo API')
