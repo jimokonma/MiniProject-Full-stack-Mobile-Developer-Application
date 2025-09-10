@@ -7,9 +7,9 @@ export declare class NotificationsService {
     notifyUser(userId: string, message: string, bookingId?: string): Promise<{
         id: string;
         createdAt: Date;
-        userId: string;
         type: string;
         message: string;
+        userId: string;
         bookingId: string | null;
     }>;
 }

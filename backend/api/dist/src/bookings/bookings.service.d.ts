@@ -11,9 +11,9 @@ export declare class BookingsService implements OnModuleInit {
     create(userId: string, dto: any, idempotencyKey?: string): Promise<any>;
     listByUser(userId: string): Promise<{
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;
@@ -24,9 +24,9 @@ export declare class BookingsService implements OnModuleInit {
     }[]>;
     listAll(): Promise<{
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;
@@ -37,9 +37,9 @@ export declare class BookingsService implements OnModuleInit {
     }[]>;
     detail(id: string): Promise<{
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;
@@ -51,9 +51,9 @@ export declare class BookingsService implements OnModuleInit {
     historyMerged(userId: string): Promise<{
         source: string;
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;
@@ -64,9 +64,9 @@ export declare class BookingsService implements OnModuleInit {
     }[]>;
     updateStatus(id: string, status: string): Promise<{
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;

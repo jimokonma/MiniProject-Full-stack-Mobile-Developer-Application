@@ -18,9 +18,9 @@ export declare class BookingsController {
     create(req: any, dto: CreateBookingDto, idempotencyKey?: string): Promise<any>;
     list(req: any, me?: string): Promise<{
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;
@@ -32,9 +32,9 @@ export declare class BookingsController {
     history(req: any): Promise<{
         source: string;
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;
@@ -45,9 +45,9 @@ export declare class BookingsController {
     }[]>;
     detail(id: string): Promise<{
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;
@@ -58,9 +58,9 @@ export declare class BookingsController {
     }>;
     updateStatus(id: string, body: UpdateStatusDto): Promise<{
         id: string;
-        userId: string;
         createdAt: Date;
         type: import("@prisma/client").$Enums.BookingType;
+        userId: string;
         status: import("@prisma/client").$Enums.BookingStatus;
         vehicleMake: string;
         vehicleModel: string;
