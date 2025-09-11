@@ -18,18 +18,25 @@ let BookingsService = class BookingsService {
     prisma;
     realtime;
     notifications;
+    idempotencyCleanupTimer;
     constructor(prisma, realtime, notifications) {
         this.prisma = prisma;
         this.realtime = realtime;
         this.notifications = notifications;
     }
     onModuleInit() {
-        setInterval(async () => {
+        this.idempotencyCleanupTimer = setInterval(async () => {
             const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
             await this.prisma.idempotencyKey.deleteMany({
                 where: { createdAt: { lt: cutoff } },
             });
         }, 60 * 60 * 1000);
+    }
+    onModuleDestroy() {
+        if (this.idempotencyCleanupTimer) {
+            clearInterval(this.idempotencyCleanupTimer);
+            this.idempotencyCleanupTimer = undefined;
+        }
     }
     async create(userId, dto, idempotencyKey) {
         if (!idempotencyKey) {

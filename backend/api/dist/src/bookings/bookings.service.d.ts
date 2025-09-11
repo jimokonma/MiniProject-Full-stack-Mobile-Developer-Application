@@ -6,8 +6,10 @@ export declare class BookingsService implements OnModuleInit {
     private readonly prisma;
     private readonly realtime;
     private readonly notifications;
+    private idempotencyCleanupTimer?;
     constructor(prisma: PrismaService, realtime: RealtimeGateway, notifications: NotificationsService);
     onModuleInit(): void;
+    onModuleDestroy(): void;
     create(userId: string, dto: any, idempotencyKey?: string): Promise<any>;
     listByUser(userId: string): Promise<{
         id: string;
